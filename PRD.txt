@@ -1,0 +1,578 @@
+# Product Requirements Document (PRD)
+
+## RAG Management Web Application
+
+---
+
+# 1. Product Overview
+
+## Product Name
+
+**RAG Admin Platform**
+
+## Product Type
+
+Web-based CRUD application untuk mengelola sistem Retrieval-Augmented Generation (RAG).
+
+## Purpose
+
+Platform ini digunakan untuk:
+
+* upload dan manajemen knowledge base,
+* indexing dokumen ke vector database,
+* monitoring embedding,
+* query/testing RAG,
+* dan administrasi model AI.
+
+Target utama adalah mempermudah developer atau researcher dalam membangun dan mengelola pipeline RAG tanpa harus mengakses command line secara manual.
+
+---
+
+# 2. Background
+
+Saat membangun sistem RAG, proses seperti:
+
+* upload dokumen,
+* chunking,
+* embedding,
+* indexing,
+* query retrieval,
+* dan monitoring vector store
+
+biasanya dilakukan secara manual menggunakan script.
+
+Hal ini menyebabkan:
+
+* sulit debugging,
+* sulit maintenance,
+* tidak scalable,
+* dan tidak user friendly.
+
+Karena itu dibutuhkan dashboard web CRUD untuk mengelola seluruh lifecycle RAG.
+
+---
+
+# 3. Goals
+
+## Primary Goals
+
+* Mempermudah manajemen knowledge base RAG
+* Menyediakan dashboard CRUD untuk dataset dan vector
+* Memungkinkan testing retrieval secara realtime
+* Mempercepat development AI assistant
+* Mendukung local LLM maupun cloud LLM
+
+---
+
+# 4. Non-Goals
+
+Versi MVP tidak mencakup:
+
+* fine tuning model
+* AI agent orchestration
+* multi-region deployment
+* distributed vector search
+* enterprise billing
+* marketplace/plugin system
+
+---
+
+# 5. Target Users
+
+## Primary Users
+
+### AI Engineer
+
+Mengelola pipeline RAG dan model embedding.
+
+### Security Researcher
+
+Mengelola dataset Metasploit/CVE/pentest notes.
+
+### Developer
+
+Mengintegrasikan RAG ke aplikasi lain.
+
+---
+
+# 6. User Problems
+
+| Problem                              | Impact                    |
+| ------------------------------------ | ------------------------- |
+| Sulit melihat chunk hasil splitting  | Debugging retrieval sulit |
+| Tidak ada dashboard vector DB        | Sulit monitoring          |
+| Harus re-run script manual           | Tidak efisien             |
+| Tidak tahu chunk mana yang retrieved | Sulit evaluasi            |
+| Upload dataset manual                | Workflow lambat           |
+
+---
+
+# 7. Core Features
+
+# 7.1 Authentication
+
+## Description
+
+Sistem login untuk administrator.
+
+## Requirements
+
+* Login
+* Logout
+* Session/token auth
+* Password hashing
+
+## Future
+
+* OAuth
+* SSO
+* RBAC
+
+---
+
+# 7.2 Knowledge Base CRUD
+
+## Description
+
+Mengelola dokumen sumber knowledge base.
+
+## Features
+
+### Create
+
+Upload:
+
+* PDF
+* TXT
+* DOCX
+* Markdown
+
+### Read
+
+Menampilkan:
+
+* filename
+* upload date
+* size
+* status
+
+### Update
+
+* rename metadata
+* re-index
+* re-embed
+
+### Delete
+
+* hapus metadata
+* hapus vector embedding
+
+---
+
+# 7.3 Document Processing Pipeline
+
+## Description
+
+Pipeline otomatis setelah upload.
+
+## Flow
+
+```text id="7qj74v"
+Upload
+→ Text Extraction
+→ Chunking
+→ Embedding
+→ Vector Storage
+→ Metadata Save
+```
+
+## Requirements
+
+* async processing
+* processing status
+* retry mechanism
+* error logging
+
+---
+
+# 7.4 Chunk Viewer
+
+## Description
+
+Menampilkan hasil chunking dokumen.
+
+## Features
+
+* view chunk content
+* token count
+* source mapping
+* chunk overlap info
+* chunk search
+
+## Purpose
+
+Debugging retrieval quality.
+
+---
+
+# 7.5 Embedding Management
+
+## Description
+
+Manajemen embedding vector.
+
+## Features
+
+* select embedding model
+* regenerate embeddings
+* view embedding dimension
+* embedding status
+
+## Supported Models
+
+* BGE
+* E5
+* MiniLM
+* Nomic Embed
+
+---
+
+# 7.6 Vector Database Management
+
+## Description
+
+Mengelola vector database.
+
+## Features
+
+* list collections
+* delete collection
+* reindex collection
+* collection stats
+* vector count
+
+## Initial Support
+
+* ChromaDB
+* Qdrant
+
+---
+
+# 7.7 Query Playground
+
+## Description
+
+Testing RAG secara realtime.
+
+## Input
+
+```text id="4z89m5"
+User Question
+```
+
+## Output
+
+* retrieved chunks
+* similarity score
+* final answer
+* latency
+* source document
+
+## Features
+
+* top-k retrieval config
+* prompt preview
+* temperature config
+
+---
+
+# 7.8 LLM Configuration
+
+## Description
+
+Mengelola model AI.
+
+## Features
+
+* add provider
+* update API endpoint
+* model selection
+* health check
+
+## Supported Providers
+
+* Ollama
+* OpenAI-compatible API
+* LM Studio
+
+---
+
+# 7.9 Logs & Monitoring
+
+## Description
+
+Monitoring sistem.
+
+## Features
+
+* ingestion logs
+* query logs
+* error logs
+* processing duration
+* token usage
+
+---
+
+# 8. Functional Requirements
+
+| ID    | Requirement                            |
+| ----- | -------------------------------------- |
+| FR-1  | User dapat upload dokumen              |
+| FR-2  | Sistem melakukan chunking otomatis     |
+| FR-3  | Sistem generate embedding              |
+| FR-4  | Sistem menyimpan vector                |
+| FR-5  | User dapat melihat chunk               |
+| FR-6  | User dapat delete dataset              |
+| FR-7  | User dapat query knowledge base        |
+| FR-8  | Sistem menampilkan retrieved chunks    |
+| FR-9  | User dapat memilih model embedding     |
+| FR-10 | User dapat mengelola vector collection |
+
+---
+
+# 9. Non-Functional Requirements
+
+| Category        | Requirement                 |
+| --------------- | --------------------------- |
+| Performance     | Query < 5 detik             |
+| Scalability     | Support >100k chunks        |
+| Security        | JWT auth                    |
+| Reliability     | Retry failed ingestion      |
+| Availability    | 99% uptime local deployment |
+| Maintainability | Modular architecture        |
+
+---
+
+# 10. Technical Architecture
+
+# Frontend
+
+| Component  | Tech                                                           |
+| ---------- | -------------------------------------------------------------- |
+| Framework  | [Next.js](https://nextjs.org?utm_source=chatgpt.com)           |
+| UI         | [Tailwind CSS](https://tailwindcss.com?utm_source=chatgpt.com) |
+| Components | [shadcn/ui](https://ui.shadcn.com?utm_source=chatgpt.com)      |
+
+---
+
+# Backend
+
+| Component | Tech                                                           |
+| --------- | -------------------------------------------------------------- |
+| API       | [FastAPI](https://fastapi.tiangolo.com?utm_source=chatgpt.com) |
+| ORM       | SQLAlchemy                                                     |
+| Queue     | Celery / BackgroundTasks                                       |
+
+---
+
+# Database
+
+| Type        | Technology                                                   |
+| ----------- | ------------------------------------------------------------ |
+| Metadata DB | PostgreSQL                                                   |
+| Vector DB   | [ChromaDB](https://www.trychroma.com?utm_source=chatgpt.com) |
+
+---
+
+# AI Stack
+
+| Component | Tech                                                          |
+| --------- | ------------------------------------------------------------- |
+| Framework | [LangChain](https://www.langchain.com?utm_source=chatgpt.com) |
+| Embedding | BGE                                                           |
+| LLM       | [Ollama](https://ollama.com?utm_source=chatgpt.com)           |
+
+---
+
+# 11. Database Schema (MVP)
+
+# documents
+
+```sql id="qz76mk"
+id
+filename
+source
+size
+status
+created_at
+updated_at
+```
+
+---
+
+# chunks
+
+```sql id="rllr3s"
+id
+document_id
+content
+token_count
+chunk_index
+embedding_id
+created_at
+```
+
+---
+
+# embeddings
+
+```sql id="0vm1ut"
+id
+model_name
+dimension
+created_at
+```
+
+---
+
+# query_logs
+
+```sql id="0n0iy4"
+id
+question
+response
+latency
+created_at
+```
+
+---
+
+# 12. API Endpoints
+
+# Documents
+
+| Method | Endpoint       |
+| ------ | -------------- |
+| POST   | /documents     |
+| GET    | /documents     |
+| GET    | /documents/:id |
+| DELETE | /documents/:id |
+
+---
+
+# Chunks
+
+| Method | Endpoint    |
+| ------ | ----------- |
+| GET    | /chunks     |
+| GET    | /chunks/:id |
+
+---
+
+# Query
+
+| Method | Endpoint |
+| ------ | -------- |
+| POST   | /query   |
+
+---
+
+# Models
+
+| Method | Endpoint |
+| ------ | -------- |
+| GET    | /models  |
+| POST   | /models  |
+
+---
+
+# 13. UI Pages
+
+| Page       | Purpose         |
+| ---------- | --------------- |
+| Dashboard  | System overview |
+| Documents  | Manage KB       |
+| Chunks     | View chunks     |
+| Playground | Test RAG        |
+| Models     | Configure AI    |
+| Logs       | Monitoring      |
+
+---
+
+# 14. MVP Scope
+
+## Included
+
+* Upload documents
+* Chunking
+* Embedding
+* ChromaDB integration
+* Query playground
+* CRUD documents
+* Chunk viewer
+
+## Excluded
+
+* Multi-user
+* Kubernetes deployment
+* Distributed vector search
+* Fine-tuning
+* Billing
+
+---
+
+# 15. Future Roadmap
+
+# Phase 2
+
+* RBAC
+* Team workspace
+* Multi-vector DB
+* Reranking
+* Hybrid search
+
+---
+
+# Phase 3
+
+* Agent workflow
+* Graph RAG
+* Knowledge graph
+* Auto-tagging
+* Citation generation
+
+---
+
+# 16. Success Metrics
+
+| Metric               | Target |
+| -------------------- | ------ |
+| Upload success rate  | >95%   |
+| Query latency        | <5s    |
+| Retrieval relevance  | >80%   |
+| Failed ingestion     | <3%    |
+| User task completion | >90%   |
+
+---
+
+# 17. Risks
+
+| Risk                         | Mitigation               |
+| ---------------------------- | ------------------------ |
+| Large file processing lambat | async queue              |
+| Embedding mahal              | local embedding          |
+| Hallucination                | source retrieval preview |
+| Vector corruption            | backup collection        |
+
+---
+
+# 18. Recommended MVP Stack
+
+| Layer       | Tech       |
+| ----------- | ---------- |
+| Frontend    | Next.js    |
+| Backend     | FastAPI    |
+| Vector DB   | Qdrant     |
+| Metadata DB | PostgreSQL Supabase |
+| LLM         | Gemini     |
+| Framework   | LangChain  |

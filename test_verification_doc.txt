@@ -1,0 +1,1 @@
+Vectora is an intelligent RAG admin engine with dynamic glassmorphism design, real-time logging telemetry, custom model registration, and vector chunk visualization. It is designed to wow users with its synthetic intelligence interface.
