@@ -11,6 +11,11 @@
   [![Qdrant](https://img.shields.io/badge/Qdrant-VectorStore-red?style=for-the-badge&logo=qdrant&logoColor=white)](https://qdrant.tech)
   [![Gemini](https://img.shields.io/badge/Google_Gemini-Cognitive_AI-blue?style=for-the-badge&logo=google-gemini&logoColor=white)](https://ai.google.dev)
 
+  <p align="center" style="margin-top: 15px;">
+    <span>🇬🇧 <b>English</b></span> &nbsp;•&nbsp;
+    <a href="./README.id.md">🇮🇩 <b>Bahasa Indonesia</b></a>
+  </p>
+
   <p align="center" style="margin-top: 20px;">
     <a href="#ingestion--search-pipelines">🧠 <b>RAG Pipeline</b></a> &nbsp;•&nbsp;
     <a href="#installation--local-development">🌐 <b>Web Dashboard</b></a> &nbsp;•&nbsp;
