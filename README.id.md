@@ -3,13 +3,12 @@
 
   # ⚡ Vectora
 
-  ### Control Plane Administrasi & Orkestrasi RAG Berkinerja Tinggi
-
-  [![Python](https://img.shields.io/badge/Python-3.10%2B-blueviolet?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+  ### Control Plane Administrasi & Orkestrasi RAG Berkinerja Tinggi  [![Python](https://img.shields.io/badge/Python-3.10%2B-blueviolet?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
   [![FastAPI](https://img.shields.io/badge/FastAPI-v0.110%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
   [![Next.js](https://img.shields.io/badge/Next.js-v16-black?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
   [![Qdrant](https://img.shields.io/badge/Qdrant-VectorStore-red?style=for-the-badge&logo=qdrant&logoColor=white)](https://qdrant.tech)
   [![Gemini](https://img.shields.io/badge/Google_Gemini-Cognitive_AI-blue?style=for-the-badge&logo=google-gemini&logoColor=white)](https://ai.google.dev)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
   <p align="center" style="margin-top: 15px;">
     <a href="./README.md">🇬🇧 <b>English</b></a> &nbsp;•&nbsp;
@@ -70,7 +69,7 @@ Topologi Vectora terdiri dari empat lapisan decoupled:
 ## Pipeline Ingestion & Pencarian
 
 ### Pipeline Ingestion (Penyerapan)
-1. **Penyerapan Dokumen**: Berkas tidak terstruktur (seperti `.txt` atau `.md`) diunggah melalui endpoint FastAPI `/api/documents/`.
+1. **Penyerapan Dokumen**: Berkas tidak terstruktur (seperti `.txt` or `.md`) diunggah melalui endpoint FastAPI `/api/documents/`.
 2. **Pemrosesan Latar Belakang**: FastAPI menempatkan berkas pada queue latar belakang non-blocking untuk menjaga responsivitas antarmuka.
 3. **Pemisahan Teks Rekursif**: Teks diekstrak dan dibagi menggunakan `RecursiveCharacterTextSplitter` dari LangChain menjadi fragmen terstruktur (ukuran default: `1000` karakter, overlap: `200` karakter).
 4. **Generasi Vektor**: Chunk teks diparsing dan divektorisasi menggunakan model `text-embedding-004` Google Gemini. Mekanisme mock fallback yang andal akan aktif secara otomatis jika `GEMINI_API_KEY` tidak terdeteksi.
@@ -183,3 +182,11 @@ Vectora dilengkapi dengan skrip pengujian otomatis untuk memverifikasi kesehatan
    * Menguji kueri sistem RAG terintegrasi untuk validasi pengambilan data.
    * Memastikan telemetri tersimpan dengan benar di `/api/query/logs`.
    * Melakukan pembersihan data indeks uji coba secara otomatis.
+
+---
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah Lisensi MIT - lihat berkas [LICENSE](LICENSE) untuk informasi lebih lanjut.
+
+Hak Cipta (c) 2026 Ferta Junindi. Hak cipta dilindungi undang-undang.

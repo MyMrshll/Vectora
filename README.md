@@ -10,6 +10,7 @@
   [![Next.js](https://img.shields.io/badge/Next.js-v16-black?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
   [![Qdrant](https://img.shields.io/badge/Qdrant-VectorStore-red?style=for-the-badge&logo=qdrant&logoColor=white)](https://qdrant.tech)
   [![Gemini](https://img.shields.io/badge/Google_Gemini-Cognitive_AI-blue?style=for-the-badge&logo=google-gemini&logoColor=white)](https://ai.google.dev)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
   <p align="center" style="margin-top: 15px;">
     <span>🇬🇧 <b>English</b></span> &nbsp;•&nbsp;
@@ -182,3 +183,11 @@ Vectora comes with a test harness designed to verify ingestion and query pipelin
    * Query the integrated RAG pipeline for retrieval validation.
    * Assert the persistence of telemetry in `/api/query/logs`.
    * Clean up index entries.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2026 Ferta Junindi. All rights reserved.
