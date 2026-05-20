@@ -49,7 +49,7 @@ Aplikasi ini dilengkapi dengan dashboard glassmorphism terpadu yang berorientasi
         ┌────────────────────────┐   │   ┌────────────────────────┐
         │   Google Gemini APIs   │   │   │     PostgreSQL DB      │
         │  (text-embedding-004)  │   │   │   (Chunk Persistence)  │
-        │   (gemini-1.5-flash)   │   │   └────────────────────────┘
+        │(gemini-3.1-flash-lite) │   │   └────────────────────────┘
         └────────────────────────┘   │
                                      ▼
                         ┌────────────────────────┐
@@ -62,7 +62,7 @@ Topologi Vectora terdiri dari empat lapisan decoupled:
 1. **Lapisan Presentasi (Next.js)**: Didesain menggunakan sistem gaya visual kustom. Antarmuka pengguna menyertakan panel modular untuk pengindeksan dokumen, eksplorasi chunk, playground kueri telemetri, logging sistem, dan registri model aktif.
 2. **Lapisan Orkestrasi Utama (FastAPI)**: Mengatur penyerapan berkas, menginisiasi background task asinkron, mengelola telemetri pipeline, dan memformat kueri API.
 3. **Engine Indeks Vektor (Qdrant)**: Menyimpan dan mengindeks embedding semantik. Vectora mendukung penyimpanan memori ringan (`:memory:`) untuk pengembangan cepat lokal, serta koneksi ke klaster Qdrant Cloud produksi.
-4. **Lapisan Penalaran Kognitif (Google Gemini)**: Mengonversi fragmen teks menjadi embedding dimensi tinggi menggunakan model `text-embedding-004` (768 dimensi), dan menyintesis jawaban kueri berbasis konteks dengan `gemini-1.5-flash`.
+4. **Lapisan Penalaran Kognitif (Google Gemini)**: Mengonversi fragmen teks menjadi embedding dimensi tinggi menggunakan model `text-embedding-004` (768 dimensi), dan menyintesis jawaban kueri berbasis konteks dengan `gemini-3.1-flash-lite`.
 
 ---
 
@@ -80,7 +80,7 @@ Topologi Vectora terdiri dari empat lapisan decoupled:
 1. **Vektorosasi Kueri**: Pertanyaan bahasa alami pengguna dipetakan ke dalam ruang vektor berdimensi 768 menggunakan model `text-embedding-004`.
 2. **Pencarian K-Nearest Neighbors**: Vektor kueri dibandingkan dengan vektor koleksi Qdrant menggunakan kesamaan Cosine. Poin kecocokan teratas (top-k) diambil.
 3. **Rekonstruksi Konteks**: Chunk dokumen sumber dikumpulkan dan diformat menjadi prompt konteks yang sangat relevan.
-4. **Sintesis Jawaban**: Prompt hasil rekonstruksi dikirimkan ke model `gemini-1.5-flash` Google Gemini untuk menyusun balasan yang akurat dan berbasis dokumen.
+4. **Sintesis Jawaban**: Prompt hasil rekonstruksi dikirimkan ke model `gemini-3.1-flash-lite` Google Gemini untuk menyusun balasan yang akurat dan berbasis dokumen.
 5. **Telemetri Log**: Statistik setiap kueri—termasuk latensi mentah, referensi sumber, skor jarak, dan estimasi jumlah token—disimpan di database log kueri untuk audit sistem.
 
 ---

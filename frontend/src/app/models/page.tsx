@@ -26,7 +26,7 @@ export default function ModelsPage() {
   const fetchModels = async (showLoading = true) => {
     if (showLoading) setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/models/");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/models/`);
       if (res.ok) {
         const data = await res.json();
         setModels(data);
@@ -58,7 +58,7 @@ export default function ModelsPage() {
         api_endpoint: apiEndpoint.trim() || null,
       };
 
-      const res = await fetch("http://localhost:8000/api/models/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/models/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -11,13 +11,13 @@ async def upload_document(
     file: UploadFile = File(...)
 ):
     # Check supported extensions
-    allowed_extensions = ["txt", "pdf", "docx", "md", "markdown"]
+    allowed_extensions = ["json", "xml", "csv"]
     file_ext = file.filename.split(".")[-1].lower()
     
     if file_ext not in allowed_extensions:
         raise HTTPException(
             status_code=400,
-            detail=f"Unsupported file format. Allowed formats: {', '.join(allowed_extensions)}"
+            detail=f"Unsupported file format. Only scraped datasets in the following formats are allowed: {', '.join(allowed_extensions)}"
         )
         
     try:

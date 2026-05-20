@@ -51,20 +51,20 @@ The application features a unified developer-centric glassmorphism dashboard, re
        ┌────────────────────────┐   │   ┌────────────────────────┐
        │   Google Gemini APIs   │   │   │     PostgreSQL DB      │
        │  (text-embedding-004)  │   │   │   (Chunk Persistence)  │
-       │   (gemini-1.5-flash)   │   │   └────────────────────────┘
-       └────────────────────────┘   │
-                                    ▼
-                       ┌────────────────────────┐
-                       │  Qdrant Vector Engine  │
-                       │   (Cos-Sim Indexing)   │
-                       └────────────────────────┘
+        │(gemini-3.1-flash-lite) │   │   └────────────────────────┘
+        └────────────────────────┘   │
+                                     ▼
+                        ┌────────────────────────┐
+                        │  Qdrant Vector Engine  │
+                        │   (Cos-Sim Indexing)   │
+                        └────────────────────────┘
 ```
 
 The Vectora topology consists of four decoupled layers:
 1. **Presentation Layer (Next.js)**: Styled via a custom visual design system. The user interface features modular panes for document indexing, chunk exploration, telemetry query playgrounds, system logging, and active model registries.
 2. **Orchestration Core (FastAPI)**: Coordinates file ingestion, initiates asynchronous background tasks, manages pipeline telemetry, and formats API queries.
 3. **Vector Indexing Engine (Qdrant)**: Stores and indexes semantic embeddings. Vectora supports both lightweight in-memory storage (`:memory:`) for development and connection to production Qdrant clusters.
-4. **Cognitive Reasoning Layer (Google Gemini)**: Translates text fragments into high-dimensional embeddings via the `text-embedding-004` model (768 dimensions), and synthesizes context-grounded query answers using `gemini-1.5-flash`.
+4. **Cognitive Reasoning Layer (Google Gemini)**: Translates text fragments into high-dimensional embeddings via the `text-embedding-004` model (768 dimensions), and synthesizes context-grounded query answers using `gemini-3.1-flash-lite`.
 
 ---
 
@@ -82,7 +82,7 @@ The Vectora topology consists of four decoupled layers:
 1. **Query Vectorization**: The natural language user query is mapped into the 768-dimensional vector space using the `text-embedding-004` model.
 2. **K-Nearest Neighbors Search**: The query vector is compared against Qdrant collection vectors using Cosine similarity. The top-k matching points are retrieved.
 3. **Context Reconstruction**: Source document chunks are gathered and formatted into a highly relevant context prompt.
-4. **Synthesized Generation**: The reconstructed prompt is submitted to Google Gemini's `gemini-1.5-flash` model to construct a grounded reply.
+4. **Synthesized Generation**: The reconstructed prompt is submitted to Google Gemini's `gemini-3.1-flash-lite` model to construct a grounded reply.
 5. **Telemetry Logging**: Every query's statistics—including raw latency, source references, distance scores, and estimated token counts—are persisted in the query logs database for system audit.
 
 ---

@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     # Supabase Credentials
     SUPABASE_URL: str = ""
     SUPABASE_KEY: str = ""
+    DATABASE_URL: str = ""
+
     
     # Qdrant Credentials
     QDRANT_URL: str = ":memory:"

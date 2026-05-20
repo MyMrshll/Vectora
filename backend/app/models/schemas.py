@@ -67,6 +67,30 @@ class QueryResponse(BaseModel):
     latency: float
     created_at: datetime
 
+# Graph Schemas
+class GraphNode(BaseModel):
+    id: str
+    label: str
+    type: str = "Concept"
+    val: float = 1.0
+
+class GraphEdge(BaseModel):
+    source: str
+    target: str
+    label: str
+
+class GraphData(BaseModel):
+    nodes: List[GraphNode]
+    edges: List[GraphEdge]
+
+class GraphQueryResponse(BaseModel):
+    answer: str
+    retrieved_chunks: List[RetrievedChunk]
+    latency: float
+    created_at: datetime
+    graph: GraphData
+
+
 # LLM Model Config Schemas
 class AIModelResponse(BaseModel):
     id: str
@@ -82,3 +106,26 @@ class AIModelCreate(BaseModel):
     model_name: str
     type: str
     api_endpoint: Optional[str] = None
+
+# Vector Database Schemas
+class VectorDBCreate(BaseModel):
+    name: str
+    provider: str
+    url: Optional[str] = None
+    api_key: Optional[str] = None
+
+class VectorDBResponse(BaseModel):
+    id: str
+    name: str
+    provider: str
+    url: Optional[str] = None
+    api_key: Optional[str] = None
+    status: str
+    active_collection: str = "vectora_documents"
+    created_at: Optional[datetime] = None  # Wait, database sometimes gives None or missing created_at, let's make Optional[datetime] just in case
+
+    class Config:
+        from_attributes = True
+
+class CollectionCreate(BaseModel):
+    name: str

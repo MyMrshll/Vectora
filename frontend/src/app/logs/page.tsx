@@ -19,7 +19,7 @@ export default function LogsPage() {
   const fetchLogs = async (showLoading = true) => {
     if (showLoading) setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/query/logs");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/query/logs`);
       if (res.ok) {
         const data = await res.json();
         setLogs(data);

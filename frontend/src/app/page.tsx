@@ -45,17 +45,17 @@ export default function DashboardPage() {
     if (showLoading) setLoading(true);
     try {
       // Fetch documents
-      const docsRes = await fetch("http://localhost:8000/api/documents");
+      const docsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents`);
       const docsData = await docsRes.json();
       setDocuments(docsData);
 
       // Fetch chunks
-      const chunksRes = await fetch("http://localhost:8000/api/chunks");
+      const chunksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chunks`);
       const chunksData = await chunksRes.json();
       setChunks(chunksData);
 
       // Fetch query logs
-      const logsRes = await fetch("http://localhost:8000/api/query/logs");
+      const logsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/query/logs`);
       const logsData = await logsRes.json();
       setLogs(logsData);
     } catch (err) {
@@ -92,7 +92,7 @@ export default function DashboardPage() {
     setUploadError(null);
 
     try {
-      const res = await fetch("http://localhost:8000/api/documents/", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents/`, {
         method: "POST",
         body: formData,
       });

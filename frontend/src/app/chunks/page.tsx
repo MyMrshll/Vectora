@@ -30,7 +30,7 @@ export default function ChunksPage() {
   // Fetch documents for the filter selector
   const fetchDocuments = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/documents");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/documents`);
       if (res.ok) {
         const data = await res.ok ? await res.json() : [];
         setDocuments(data.filter((d: Document) => d.status === "completed"));
@@ -45,8 +45,8 @@ export default function ChunksPage() {
     setLoading(true);
     try {
       const url = docId 
-        ? `http://localhost:8000/api/chunks?document_id=${docId}`
-        : "http://localhost:8000/api/chunks";
+        ? `${process.env.NEXT_PUBLIC_API_URL}/chunks?document_id=${docId}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/chunks`;
       
       const res = await fetch(url);
       if (res.ok) {

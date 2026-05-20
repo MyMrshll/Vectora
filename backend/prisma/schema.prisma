@@ -1,0 +1,102 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model Document {
+  id         String   @id @default(uuid())
+  filename   String
+  source     String?
+  size       Int
+  status     String   @default("pending")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  chunks     Chunk[]
+  entities   Entity[]
+  relations  Relation[]
+
+  @@map("documents")
+}
+
+model Chunk {
+  id           String   @id @default(uuid())
+  document_id  String
+  document     Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
+  content      String
+  token_count  Int
+  chunk_index  Int
+  embedding_id String?
+  created_at   DateTime @default(now())
+
+  @@map("chunks")
+}
+
+model QueryLog {
+  id         String   @id @default(uuid())
+  question   String
+  response   String
+  latency    Float
+  created_at DateTime @default(now())
+
+  @@map("query_logs")
+}
+
+model AIModel {
+  id           String   @id @default(uuid())
+  provider     String
+  model_name   String
+  type         String
+  status       String   @default("active")
+  dimension    Int?
+  api_endpoint String?
+  created_at   DateTime @default(now())
+
+  @@map("models")
+}
+
+model VectorDB {
+  id                String   @id @default(uuid())
+  name              String
+  provider          String
+  url               String?
+  api_key           String?
+  status            String   @default("inactive")
+  active_collection String   @default("vectora_documents")
+  created_at        DateTime @default(now())
+
+  @@map("vector_dbs")
+}
+
+model Entity {
+  id          String     @id @default(uuid())
+  entity_id   String
+  name        String
+  type        String     @default("Concept")
+  val         Float      @default(1.0)
+  document_id String
+  document    Document   @relation(fields: [document_id], references: [id], onDelete: Cascade)
+  
+  source_relations Relation[] @relation("SourceEntity")
+  target_relations Relation[] @relation("TargetEntity")
+
+  @@map("entities")
+}
+
+model Relation {
+  id          String   @id @default(uuid())
+  source_id   String
+  source      Entity   @relation("SourceEntity", fields: [source_id], references: [id], onDelete: Cascade)
+  target_id   String
+  target      Entity   @relation("TargetEntity", fields: [target_id], references: [id], onDelete: Cascade)
+  label       String
+  document_id String
+  document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
+
+  @@map("relations")
+}

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from app.services.rag_service import rag_service
-from app.models.schemas import QueryRequest, QueryResponse
+from app.models.schemas import QueryRequest, QueryResponse, GraphQueryResponse
 from typing import List, Dict, Any
 
 router = APIRouter()
@@ -18,6 +18,19 @@ async def query_rag(request: QueryRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.post("/graph", response_model=GraphQueryResponse)
+async def query_rag_graph(request: QueryRequest):
+    try:
+        res = await rag_service.query_rag_graph(
+            question=request.question,
+            top_k=request.top_k,
+            temperature=request.temperature,
+            prompt_template=request.prompt_template
+        )
+        return res
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/logs", response_model=List[Dict[str, Any]])
 async def get_query_logs():
     try:
@@ -25,3 +38,4 @@ async def get_query_logs():
         return logs
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
