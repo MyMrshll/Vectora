@@ -3,7 +3,7 @@
 
   # ⚡ Vectora
 
-  ### High-Performance RAG Orchestration & Administration Control Plane
+  ### High-Performance RAG Orchestration & Administration Control Plane a
 
   [![Python](https://img.shields.io/badge/Python-3.10%2B-blueviolet?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
   [![FastAPI](https://img.shields.io/badge/FastAPI-v0.110%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
